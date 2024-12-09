@@ -1,0 +1,149 @@
+/* Basic Reset */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Arial', sans-serif;
+  background-color: #f2f4f8;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  margin: 0;
+}
+
+.login-container {
+  width: 100%;
+  max-width: 420px;
+  padding: 40px;
+  background-color: #fff;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+  border-radius: 12px;
+  text-align: center;
+
+  
+}
+
+
+
+h2 {
+  margin-bottom: 30px;
+  color: #333;
+  font-size: 24px;
+  font-weight: 600;
+  text-transform: uppercase;
+}
+
+.input-group {
+  margin-bottom: 20px;
+  text-align: left;
+}
+
+label {
+  display: block;
+  margin-bottom: 8px;
+  color: #555;
+  font-weight: 500;
+  font-size: 14px;
+}
+
+input {
+  width: 100%;
+  padding: 12px;
+  margin-top: 8px;
+  border: 2px solid #ccc;
+  border-radius: 8px;
+  font-size: 14px;
+  outline: none;
+  transition: border-color 0.3s ease-in-out;
+}
+
+input:focus {
+  border-color: #007bff;
+}
+
+.submit-btn {
+  width: 100%;
+  padding: 14px;
+  background-color: #007bff;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-size: 16px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background-color 0.3s ease-in-out;
+}
+
+.submit-btn:hover {
+  background-color: #0056b3;
+}
+
+.submit-btn:active {
+  background-color: #003f7f;
+}
+
+.error {
+  color: red;
+  font-size: 14px;
+  margin-bottom: 10px;
+}
+
+/* Links */
+.link {
+  color: #007bff;
+  cursor: pointer;
+  text-decoration: none;
+  font-weight: bold;
+  font-size: 14px;
+}
+
+.link:hover {
+  text-decoration: underline;
+  color: #0056b3;
+}
+
+.signup-link, .forgot-password-link {
+  margin-top: 20px;
+  font-size: 14px;
+  color: #555;
+}
+
+.signup-link .link {
+  font-weight: bold;
+}
+
+.forgot-password-link {
+  margin-top: 15px;
+  margin-bottom:15px;
+}
+
+.forgot-password-link .link {
+  font-weight: 400;
+  font-size: 14px;
+}
+
+/* Add smooth transition on hover for links */
+.forgot-password-link .link:hover, .signup-link .link:hover {
+  color: #0056b3;
+}
+
+/* Responsive Design */
+@media (max-width: 500px) {
+  .login-container {
+    padding: 20px;
+    width: 90%;
+  }
+
+  h2 {
+    font-size: 20px;
+  }
+
+  .submit-btn {
+    font-size: 14px;
+    padding: 12px;
+  }
+}
