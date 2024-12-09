@@ -26,21 +26,30 @@ app.get("/", (req, res) => {
   res.send("Server is running");
 
 });
-app.post('/signup',async(req,res)=>{
-  const {name,email,password} = req.body;
-  if(!name || !email || !password){
-    return res.status(400).json({message: "Invalid username or password"})
+app.post('/signup', async (req, res) => {
+  const { name, email, password } = req.body;
+
+  if (!name || !email || !password) {
+    return res.status(400).json({ message: "Invalid name, email, or password" });
   }
+
   try {
-    const newUser = User({
-      name,email,password
-    })
-    await newUser.save()
-    return res.status(201).json({message: "User saved successfully"})
+    const newUser = new User({ name, email, password });
+    
+    await newUser.save(); // Save the new user to the database
+
+    // Send a success response once the user is saved
+    return res.status(201).json({ message: "User saved successfully" });
+
   } catch (err) {
-    res.status(500).json({message: err.message})
+    // Handle errors properly by sending only one response
+    console.error(err);
+    if (!res.headersSent) {
+      res.status(500).json({ message: "Error saving user to database" });
+    }
   }
-})
+});
+
 
 app.post("/login", async (req, res) => {
   const { email, password } = req.body;
@@ -84,6 +93,31 @@ app.post('/forgot-password',async(req,res)=>{
   }
 })
 
+app.get('/user/:email',async(req,res)=>{
+  const email = req.params.email;
+  try {
+    const user = await User.findOne({email})
+    if(!user){
+      res.status(404).json({message : "User not found"})
+    }
+    res.status(200).json(user)
+  } catch (err) {
+    res.status(500).json({message : err.message})
+  }
+})
+
+app.delete('/user/:email',async(req,res) => {
+  const email = req.params.email;
+  try {
+    const user = await User.findOneAndDelete({email})
+    if(!user){
+      res.status(404).json({message:"User not found"})
+    }
+    res.json({message:"User deleted successfully"})
+  } catch (err) {
+    res.status(500).json({message : err.message})
+  }
+})
 // Start the Server
 app.listen(port, () => {
   console.log("Listening on port", port);

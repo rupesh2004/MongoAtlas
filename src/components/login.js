@@ -25,7 +25,8 @@ const LoginForm = () => {
       });
       if (response.status === 200) {
         alert(response.data.message);
-        navigate("/");
+        localStorage.setItem("userEmail",email )
+        navigate("/user-details");
       }
     } catch (err) {
       if (err.response) {

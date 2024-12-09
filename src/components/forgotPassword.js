@@ -19,7 +19,8 @@ const ForgotPassword = () => {
         newPassword,
       });
 
-      setMessage(response.data.message);  // Success message
+      alert(response.data.message); 
+      navigate('/') // Success message
     } catch (err) {
       setError(err.response?.data?.message || "An error occurred");
     }

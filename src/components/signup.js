@@ -1,35 +1,37 @@
 import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom'; // Use useNavigate instead of useHistory
+import { useNavigate } from 'react-router-dom'; 
 import './SignUp.css';
 
 const SignUp = () => {
   const [email, setEmail] = useState('');
-  const [name,setName] = useState('');
+  const [name, setName] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
-  const navigate = useNavigate(); // Initialize useNavigate
+  const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     setError('');
 
     // Basic form validation
-    if (!email || !password) {
-      setError('Both email and password are required');
+    if (!email || !password || !name) {
+      setError('Name, email, and password are required');
       return;
     }
+
     try {
-      const response = await fetch('http://localhost:6969/signup',{
-        method : 'POST',
-        headers: {'Content-Type': 'application/json'},
-        body: JSON.stringify({name,email,password})
+      const response = await fetch('http://localhost:6969/signup', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ name, email, password }),
       });
 
-      if(response.ok){
-        alert("Sign Up Successful")
-        navigate('/')
-      }else{
-        alert('invalid credentials')
+      if (response.ok) {
+        alert("Sign Up Successful");
+        navigate('/');  // Redirect to home or login page
+      } else {
+        const result = await response.json();
+        setError(result.message || 'Invalid credentials');
       }
     } catch (error) {
       setError('Error creating account');
@@ -46,8 +48,8 @@ const SignUp = () => {
         <h2>Sign Up</h2>
         {error && <div className="error">{error}</div>}
         <form onSubmit={handleSubmit}>
-        <div className="input-group">
-            <label htmlFor="email">Name</label>
+          <div className="input-group">
+            <label htmlFor="name">Name</label>
             <input
               type="text"
               id="name"
@@ -84,7 +86,6 @@ const SignUp = () => {
           <button type="submit" className="submit-btn">Sign Up</button>
         </form>
 
-        {/* Add "Already have an account?" link */}
         <div className="already-have-account">
           <p>Already have an account? <span onClick={redirectToLogin} className="link">Log In</span></p>
         </div>
